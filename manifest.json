@@ -2,7 +2,7 @@
   "name": "CandyTracker",
   "short_name": "CandyTracker",
   "description": "Track substances during a night out",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0B0B0F",
   "theme_color": "#0B0B0F",
