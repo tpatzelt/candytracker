@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#4f46e5">
-  <meta name="description" content="CandyTracker - Track your daily habits">
+  <meta name="theme-color" content="#0B0B0F">
+  <meta name="description" content="CandyTracker - Track substances during a night out">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -12,14 +14,125 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <header id="header">
-    <h1>CandyTracker</h1>
-  </header>
+  <div id="app">
+    <header id="header">
+      <h1>CandyTracker</h1>
+      <div id="header-time"></div>
+    </header>
 
-  <main>
-    <p class="subtitle">Track your daily habits</p>
-    <div id="app"></div>
-  </main>
+    <main>
+      <div id="session-card" class="session-card glass-card">
+        <div class="session-title">Current Session</div>
+        <div class="session-grid">
+          <div class="session-item">
+            <span class="session-label">Started</span>
+            <span class="session-value" id="session-started">--:--</span>
+          </div>
+          <div class="session-item">
+            <span class="session-label">Entries</span>
+            <span class="session-value" id="session-entries">0</span>
+          </div>
+          <div class="session-item">
+            <span class="session-label">Elapsed</span>
+            <span class="session-value" id="session-elapsed">0m</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="timeline">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="28" stroke="#6B7280" stroke-width="2" stroke-dasharray="4 4"/>
+              <line x1="32" y1="20" x2="32" y2="44" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+              <line x1="20" y1="32" x2="44" y2="32" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="empty-title">No entries yet</p>
+          <p class="empty-sub">Tap + when you take something.</p>
+        </div>
+        <div id="timeline-entries"></div>
+      </section>
+    </main>
+
+    <button id="fab" class="fab" aria-label="Add entry">+</button>
+  </div>
+
+  <div id="sheet-overlay" class="sheet-overlay hidden">
+    <div id="bottom-sheet" class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll">
+        <h2 class="sheet-title">Add Entry</h2>
+
+        <div class="field">
+          <label class="field-label">Substance</label>
+          <div id="drug-chips" class="chip-row"></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Method</label>
+          <div id="method-group" class="method-group"></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Amount</label>
+          <div class="amount-row">
+            <input type="number" id="amount-input" class="amount-input" value="0.25" step="0.01" min="0" inputmode="decimal">
+            <select id="unit-select" class="unit-select"></select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Time</label>
+          <div id="time-options" class="time-options"></div>
+          <div id="custom-time-picker" class="custom-time-picker hidden">
+            <input type="datetime-local" id="custom-time-input" class="time-input">
+          </div>
+        </div>
+
+        <button id="save-btn" class="save-btn">
+          <span class="save-text">Add Entry</span>
+          <span class="save-check hidden">&#10003;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-overlay" class="modal-overlay hidden">
+    <div id="detail-modal" class="detail-modal glass-card">
+      <div class="detail-header">
+        <span class="detail-icon" id="detail-icon"></span>
+        <div class="detail-info">
+          <span class="detail-drug" id="detail-drug"></span>
+          <span class="detail-method" id="detail-method"></span>
+        </div>
+        <button id="detail-close" class="detail-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="detail-body">
+        <div class="detail-row">
+          <span class="detail-label">Amount</span>
+          <span class="detail-value" id="detail-amount"></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Time</span>
+          <span class="detail-value" id="detail-time"></span>
+        </div>
+        <div class="detail-row" style="flex-direction:column;align-items:stretch;gap:8px;border-bottom:none;padding-bottom:0">
+          <span class="detail-label">Notes</span>
+          <textarea id="detail-notes" class="detail-notes" placeholder="Add notes..." rows="3"></textarea>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button id="detail-delete" class="detail-btn delete-btn">Delete</button>
+        <button id="detail-save" class="detail-btn save-detail-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="snackbar" class="snackbar hidden">
+    <span id="snackbar-msg">Entry deleted</span>
+    <button id="snackbar-undo" class="snackbar-btn">Undo</button>
+  </div>
 
   <script src="/app.js"></script>
   <script>

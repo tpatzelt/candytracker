@@ -1,11 +1,11 @@
 {
   "name": "CandyTracker",
   "short_name": "CandyTracker",
-  "description": "Track your daily habits",
+  "description": "Track substances during a night out",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4f46e5",
+  "background_color": "#0B0B0F",
+  "theme_color": "#0B0B0F",
   "icons": [
     {
       "src": "/icons/icon-192.png",
