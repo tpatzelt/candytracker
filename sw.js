@@ -1,4 +1,4 @@
-const CACHE = 'candytracker-v5';
+const CACHE = 'candytracker-v6';
 const ASSETS = [
   'index.html',
   'style.css',
