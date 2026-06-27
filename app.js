@@ -3,12 +3,13 @@
    ============================= */
 const DRUGS = [
   { id: 'weed', name: 'Weed', color: '#22c55e', icon: '\u{1F33F}' },
-  { id: 'ketamine', name: 'Ketamine', color: '#06b6d4', icon: '\u2744' },
-  { id: 'cocaine', name: 'Cocaine', color: '#e2e8f0', icon: '\u25C7' },
-  { id: 'mdma', name: 'MDMA', color: '#f97316', icon: '\u2B22' },
-  { id: 'amphetamine', name: 'Pep', color: '#eab308', icon: '\u26A1' },
-  { id: 'lsd', name: 'LSD', color: '#a855f7', icon: '\u25C8' },
-  { id: 'mushrooms', name: 'Mushrooms', color: '#a16207', icon: '\u{1F344}' },
+  { id: 'ketamine', name: 'Keta', color: '#06b6d4', icon: '\u{1F434}' },
+  { id: 'cocaine', name: 'Koks', color: '#e2e8f0', icon: '\u2744' },
+  { id: 'mdma', name: 'Keks', color: '#f97316', icon: '\u{1F36A}' },
+  { id: 'amphetamine', name: 'Pep', color: '#eab308', icon: '\u{1F680}' },
+  { id: 'xtasy', name: 'Xtasy', color: '#ec4899', icon: '\u{1F48A}' },
+  { id: 'lsd', name: 'LSD', color: '#a855f7', icon: '\u{1F6B2}' },
+  { id: 'mushrooms', name: 'Pilze', color: '#a16207', icon: '\u{1F344}' },
   { id: 'unknown', name: 'Unknown', color: '#6b7280', icon: '?' },
 ];
 
