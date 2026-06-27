@@ -810,6 +810,73 @@ main {
   opacity: 1;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reset-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+  touch-action: manipulation;
+}
+
+.reset-btn:active {
+  opacity: 0.8;
+}
+
+.reset-modal {
+  width: 100%;
+  max-width: 340px;
+  padding: 28px 24px 20px;
+  transform: scale(0.92);
+  transition: transform 0.3s var(--ease-out);
+  text-align: center;
+}
+
+.modal-overlay.visible .reset-modal {
+  transform: scale(1);
+}
+
+.reset-header {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.reset-warning {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.reset-warning strong {
+  color: #ef4444;
+}
+
+.reset-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.reset-confirm-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
 .hidden {
   display: none !important;
 }

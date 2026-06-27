@@ -195,6 +195,10 @@ const $detailSave = $('#detail-save');
 const $snackbar = $('#snackbar');
 const $snackbarMsg = $('#snackbar-msg');
 const $snackbarUndo = $('#snackbar-undo');
+const $resetBtn = $('#reset-btn');
+const $resetOverlay = $('#reset-overlay');
+const $resetConfirm = $('#reset-confirm');
+const $resetCancel = $('#reset-cancel');
 
 /* =============================
    RENDER
@@ -536,6 +540,31 @@ function undoDelete() {
 }
 
 /* =============================
+   RESET SESSION
+   ============================= */
+function resetSession() {
+  Store.intakes.set([]);
+  Store.session.end();
+  session = Store.session.start();
+  intakes = [];
+  Store.set('noDemo', true);
+  closeResetModal();
+  renderSession();
+  renderTimeline();
+}
+
+function openResetModal() {
+  $resetOverlay.classList.remove('hidden');
+  void $resetOverlay.offsetWidth;
+  $resetOverlay.classList.add('visible');
+}
+
+function closeResetModal() {
+  $resetOverlay.classList.remove('visible');
+  setTimeout(() => $resetOverlay.classList.add('hidden'), 300);
+}
+
+/* =============================
    REFRESH
    ============================= */
 function refreshAll() {
@@ -552,8 +581,8 @@ function init() {
     session = Store.session.start();
   }
 
-  // Prepopulate with demo entries if empty
-  if (intakes.length === 0) {
+  // Prepopulate with demo entries if empty (skip after user-initiated reset)
+  if (intakes.length === 0 && !Store.get('noDemo')) {
     const now = Date.now();
     const demo = [
       { drugId: 'weed', methodId: 'smoked', amount: 0.5, unit: 'g', timestamp: now - 5 * 60000, notes: '' },
@@ -607,6 +636,14 @@ function init() {
   $detailSave.addEventListener('click', saveDetail);
   $detailDelete.addEventListener('click', () => {
     if (editState.intake) deleteIntake(editState.intake.id);
+  });
+
+  /* --- Reset session --- */
+  $resetBtn.addEventListener('click', openResetModal);
+  $resetCancel.addEventListener('click', closeResetModal);
+  $resetConfirm.addEventListener('click', resetSession);
+  $resetOverlay.addEventListener('click', e => {
+    if (e.target === $resetOverlay) closeResetModal();
   });
 
   /* --- Snackbar --- */
